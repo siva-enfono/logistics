@@ -1,0 +1,87 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"-zMYrPYtml\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Logistics Management</span>\",\"col\":12}},{\"id\":\"Q5rBfmqAbC\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Jobs\",\"col\":4}},{\"id\":\"WDSztxKHe6\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Customers\",\"col\":4}},{\"id\":\"ILdwqQlChD\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Masters</b></span>\",\"col\":12}},{\"id\":\"6ksPIPiln6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Job Records\",\"col\":3}},{\"id\":\"6gc0aPI1xM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Driver\",\"col\":3}},{\"id\":\"WusU7ctYyq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vehicle\",\"col\":3}},{\"id\":\"wSVKe1DIc6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice\",\"col\":3}},{\"id\":\"dVLx-VzP8o\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Delivery Note\",\"col\":3}},{\"id\":\"H3UMZlCQw8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item\",\"col\":3}}]",
+ "creation": "2025-07-23 10:44:48.331421",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "stock",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Logistics Management",
+ "links": [],
+ "modified": "2025-07-23 10:53:15.290052",
+ "modified_by": "Administrator",
+ "module": "Logistics",
+ "name": "Logistics Management",
+ "number_cards": [
+  {
+   "label": "Active Customers",
+   "number_card_name": "Active Total Customers"
+  },
+  {
+   "label": "Active Jobs",
+   "number_card_name": "Active Jobs"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 39.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Sales Invoice",
+   "link_to": "Sales Invoice",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Job Records",
+   "link_to": "Job Records",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Driver",
+   "link_to": "Driver",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Delivery Note",
+   "link_to": "Delivery Note",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Item",
+   "link_to": "Item",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Vehicle",
+   "link_to": "Vehicle",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Logistics Management"
+}
