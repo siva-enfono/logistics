@@ -245,9 +245,19 @@
    "custom": 1,
    "link_doctype": "Delivery Note",
    "link_fieldname": "custom_job_record"
+  },
+  {
+   "custom": 1,
+   "link_doctype": "Purchase Invoice",
+   "link_fieldname": "custom_job_record"
+  },
+  {
+   "custom": 1,
+   "link_doctype": "Journal Entry",
+   "link_fieldname": "custom_job_record"
   }
  ],
- "modified": "2025-07-23 12:33:26.188732",
+ "modified": "2025-07-23 12:35:26.445441",
  "modified_by": "Administrator",
  "module": "Logistics",
  "name": "Job Records",
