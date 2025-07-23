@@ -1,0 +1,262 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-07-22 15:14:09.138759",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "general_details_section",
+  "naming_series",
+  "date",
+  "mode_of_transport",
+  "job_reference",
+  "po_number",
+  "column_break_btlr",
+  "job_type",
+  "assigned_by",
+  "po_date",
+  "status",
+  "item_received_date",
+  "customercontact_info_section",
+  "customer",
+  "shipper_name",
+  "column_break_liby",
+  "shipper_contact_name",
+  "shipper_contact_number",
+  "pickupdelivery_info_section",
+  "consignee_name",
+  "delivered_to_site_name",
+  "pickup_date_time",
+  "loading_place",
+  "column_break_xzdb",
+  "consignee_contact_name",
+  "consignee_contact_number",
+  "delivery_date_time",
+  "unloading_place",
+  "commodity_details_section",
+  "commodity_description",
+  "column_break_ccdx",
+  "date_of_supply",
+  "no_of_pieces",
+  "volume_cbm",
+  "weight_kg",
+  "job_assignment_section",
+  "assignments"
+ ],
+ "fields": [
+  {
+   "fieldname": "general_details_section",
+   "fieldtype": "Section Break",
+   "label": "General Details"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "mode_of_transport",
+   "fieldtype": "Select",
+   "label": "Mode of Transport\t",
+   "options": "\nLONG\nSHORT"
+  },
+  {
+   "fieldname": "job_reference",
+   "fieldtype": "Data",
+   "label": "Job Reference"
+  },
+  {
+   "fieldname": "po_number",
+   "fieldtype": "Data",
+   "label": "PO Number"
+  },
+  {
+   "fieldname": "shipper_name",
+   "fieldtype": "Data",
+   "label": "Shipper Name"
+  },
+  {
+   "fieldname": "loading_place",
+   "fieldtype": "Data",
+   "label": "Loading Place"
+  },
+  {
+   "fieldname": "pickup_date_time",
+   "fieldtype": "Datetime",
+   "label": "Pickup Date Time"
+  },
+  {
+   "fieldname": "item_received_date",
+   "fieldtype": "Date",
+   "label": "Item Received Date"
+  },
+  {
+   "fieldname": "column_break_btlr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "job_type",
+   "fieldtype": "Select",
+   "label": "Job Type",
+   "options": "\nTRANSPORTATION\nINSTALLATION"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer\t",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "assigned_by",
+   "fieldtype": "Link",
+   "label": "Assigned By",
+   "options": "User"
+  },
+  {
+   "fieldname": "po_date",
+   "fieldtype": "Date",
+   "label": "PO Date"
+  },
+  {
+   "fieldname": "consignee_name",
+   "fieldtype": "Data",
+   "label": "Consignee Name"
+  },
+  {
+   "fieldname": "unloading_place",
+   "fieldtype": "Data",
+   "label": "Unloading Place"
+  },
+  {
+   "fieldname": "delivery_date_time",
+   "fieldtype": "Datetime",
+   "label": "Delivery Date Time"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "\nJOB.#####"
+  },
+  {
+   "fieldname": "customercontact_info_section",
+   "fieldtype": "Section Break",
+   "label": "Customer/Contact Info"
+  },
+  {
+   "fieldname": "column_break_liby",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shipper_contact_name",
+   "fieldtype": "Data",
+   "label": "Shipper Contact Name"
+  },
+  {
+   "fieldname": "shipper_contact_number",
+   "fieldtype": "Data",
+   "label": "Shipper Contact Number"
+  },
+  {
+   "fieldname": "pickupdelivery_info_section",
+   "fieldtype": "Section Break",
+   "label": "Pickup/Delivery Info"
+  },
+  {
+   "fieldname": "consignee_contact_name",
+   "fieldtype": "Data",
+   "label": "Consignee Contact Name"
+  },
+  {
+   "fieldname": "delivered_to_site_name",
+   "fieldtype": "Data",
+   "label": "Delivered To (Site Name)"
+  },
+  {
+   "fieldname": "column_break_xzdb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "consignee_contact_number",
+   "fieldtype": "Data",
+   "label": "Consignee Contact Number"
+  },
+  {
+   "fieldname": "commodity_details_section",
+   "fieldtype": "Section Break",
+   "label": "Commodity Details"
+  },
+  {
+   "fieldname": "commodity_description",
+   "fieldtype": "Small Text",
+   "label": "Commodity Description"
+  },
+  {
+   "fieldname": "column_break_ccdx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_supply",
+   "fieldtype": "Date",
+   "label": "Date of Supply"
+  },
+  {
+   "fieldname": "no_of_pieces",
+   "fieldtype": "Int",
+   "label": "No. of Pieces"
+  },
+  {
+   "fieldname": "volume_cbm",
+   "fieldtype": "Float",
+   "label": "Volume (CBM)"
+  },
+  {
+   "fieldname": "weight_kg",
+   "fieldtype": "Float",
+   "label": "Weight (KG)"
+  },
+  {
+   "fieldname": "job_assignment_section",
+   "fieldtype": "Section Break",
+   "label": "Job Assignment"
+  },
+  {
+   "fieldname": "assignments",
+   "fieldtype": "Table",
+   "label": "Job Assignment",
+   "options": "Job Assignment"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Job Status",
+   "options": "Pending\nIn Progress\nCompleted"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-07-23 10:39:41.193104",
+ "modified_by": "Administrator",
+ "module": "Logistics",
+ "name": "Job Records",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
