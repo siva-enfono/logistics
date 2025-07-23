@@ -235,8 +235,19 @@
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2025-07-23 10:39:41.193104",
+ "links": [
+  {
+   "custom": 1,
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "custom_job_record"
+  },
+  {
+   "custom": 1,
+   "link_doctype": "Delivery Note",
+   "link_fieldname": "custom_job_record"
+  }
+ ],
+ "modified": "2025-07-23 12:33:26.188732",
  "modified_by": "Administrator",
  "module": "Logistics",
  "name": "Job Records",
