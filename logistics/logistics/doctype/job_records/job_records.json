@@ -27,11 +27,13 @@
   "pickupdelivery_info_section",
   "consignee_name",
   "delivered_to_site_name",
+  "start_datetime",
   "pickup_date_time",
   "loading_place",
   "column_break_xzdb",
   "consignee_contact_name",
   "consignee_contact_number",
+  "end_datetime",
   "delivery_date_time",
   "unloading_place",
   "commodity_details_section",
@@ -232,6 +234,20 @@
    "fieldtype": "Select",
    "label": "Job Status",
    "options": "Pending\nIn Progress\nCompleted"
+  },
+  {
+   "fieldname": "start_datetime",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Start Date Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_datetime",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "End Date Time",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -257,7 +273,7 @@
    "link_fieldname": "custom_job_record"
   }
  ],
- "modified": "2025-07-23 12:35:26.445441",
+ "modified": "2025-08-20 13:45:56.506773",
  "modified_by": "Administrator",
  "module": "Logistics",
  "name": "Job Records",

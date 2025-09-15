@@ -8,40 +8,9 @@ class JobRecords(Document):
 
     def validate(self):
         self.ensure_driver_vehicle_consistency()
-        self.prevent_duplicate_assignments()
-        self.restore_removed_driver_availability()
-
-    def on_update(self):
-        if self.status in ["Pending", "In Progress"]:
-            self.set_driver_availability(available=False)
-        elif self.status == "Completed":
-            self.set_driver_availability(available=True)
-
-    def set_driver_availability(self, available=True):
-        """Set availability for drivers in current assignment list."""
-        for row in self.assignments:
-            if row.driver:
-                frappe.db.set_value("Driver", row.driver, "is_available", int(available))
-
-    def restore_removed_driver_availability(self):
-        """Mark removed drivers as available if they were previously assigned to this job."""
-        if self.get("__islocal"):
-            return  
-
-        old_drivers = set(
-            d.driver for d in frappe.get_all(
-                "Job Assignment",
-                filters={"parent": self.name, "parenttype": self.doctype},
-                fields=["driver"]
-            ) if d.driver
-        )
-
-        current_drivers = set(row.driver for row in self.assignments if row.driver)
-
-        removed_drivers = old_drivers - current_drivers
-
-        for driver in removed_drivers:
-            frappe.db.set_value("Driver", driver, "is_available", 1)
+        self.prevent_time_conflicts()
+        self.create_trip_details_for_assignments()
+        self.cleanup_trip_details()
 
     def ensure_driver_vehicle_consistency(self):
         """Ensure vehicle is assigned to the selected driver's employee."""
@@ -54,31 +23,92 @@ class JobRecords(Document):
                         f"Vehicle {row.vehicle} is not assigned to the driver {row.driver}."
                     )
 
-    def prevent_duplicate_assignments(self):
-        """Ensure driver and vehicle are not assigned to other active jobs."""
-        active_statuses = ["Pending", "In Progress"]
-
+    def prevent_time_conflicts(self):
+        """Ensure driver and vehicle are not double-booked during overlapping times."""
         for row in self.assignments:
             if row.driver:
-                exists = frappe.db.sql("""
-                    SELECT ja.name
+                conflict = frappe.db.sql("""
+                    SELECT jr.name
                     FROM `tabJob Assignment` ja
                     INNER JOIN `tabJob Records` jr ON ja.parent = jr.name
                     WHERE jr.name != %s
                       AND ja.driver = %s
-                      AND jr.status IN %s
-                """, (self.name, row.driver, tuple(active_statuses)))
-                if exists:
-                    frappe.throw(f"Driver {row.driver} is already assigned to an active job.")
+                      AND (
+                            (jr.start_datetime <= %s AND jr.end_datetime >= %s) OR
+                            (jr.start_datetime <= %s AND jr.end_datetime >= %s) OR
+                            (jr.start_datetime >= %s AND jr.end_datetime <= %s)
+                          )
+                      AND jr.status IN ('Pending', 'In Progress')
+                """, (
+                    self.name,
+                    row.driver,
+                    self.start_datetime, self.start_datetime,
+                    self.end_datetime, self.end_datetime,
+                    self.start_datetime, self.end_datetime
+                ))
+                if conflict:
+                    frappe.throw(
+                        f"Driver {row.driver} is already booked for another job in this time range."
+                    )
 
             if row.vehicle:
-                exists = frappe.db.sql("""
-                    SELECT ja.name
+                conflict = frappe.db.sql("""
+                    SELECT jr.name
                     FROM `tabJob Assignment` ja
                     INNER JOIN `tabJob Records` jr ON ja.parent = jr.name
                     WHERE jr.name != %s
                       AND ja.vehicle = %s
-                      AND jr.status IN %s
-                """, (self.name, row.vehicle, tuple(active_statuses)))
-                if exists:
-                    frappe.throw(f"Vehicle {row.vehicle} is already assigned to an active job.")
+                      AND (
+                            (jr.start_datetime <= %s AND jr.end_datetime >= %s) OR
+                            (jr.start_datetime <= %s AND jr.end_datetime >= %s) OR
+                            (jr.start_datetime >= %s AND jr.end_datetime <= %s)
+                          )
+                      AND jr.status IN ('Pending', 'In Progress')
+                """, (
+                    self.name,
+                    row.vehicle,
+                    self.start_datetime, self.start_datetime,
+                    self.end_datetime, self.end_datetime,
+                    self.start_datetime, self.end_datetime
+                ))
+                if conflict:
+                    frappe.throw(
+                        f"Vehicle {row.vehicle} is already booked for another job in this time range."
+                    )
+
+    def create_trip_details_for_assignments(self):
+        """Create a Trip Details document whenever a driver is assigned."""
+        for row in self.assignments:
+            if row.driver:
+                existing_trip = frappe.db.exists(
+                    "Trip Details",
+                    {"job_records": self.name, "driver": row.driver}
+                )
+                if not existing_trip:
+                    trip = frappe.new_doc("Trip Details")
+                    trip.job_records = self.name
+                    trip.driver = row.driver
+                    trip.vehicle = row.vehicle
+                    trip.start_datetime = self.start_datetime
+                    trip.end_datetime = self.end_datetime
+                    trip.pickup_date_time = self.pickup_date_time
+                    trip.delivery_date_time = self.delivery_date_time
+                    trip.loading_place = self.loading_place
+                    trip.unloading_place = self.unloading_place
+                    trip.status = "Pending"
+                    trip.insert(ignore_permissions=True)
+                    frappe.msgprint(f"Trip created for Driver {row.driver}")
+
+    def cleanup_trip_details(self):
+        """Delete Trip Details if their assignment row was removed from Job Records."""
+        active_driver_ids = [row.driver for row in self.assignments if row.driver]
+
+        trips = frappe.get_all(
+            "Trip Details",
+            filters={"job_records": self.name},
+            fields=["name", "driver", "status"]
+        )
+
+        for trip in trips:
+            if trip.driver not in active_driver_ids and trip.status == "Pending":
+                frappe.delete_doc("Trip Details", trip.name, force=True)

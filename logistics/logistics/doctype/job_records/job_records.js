@@ -2,13 +2,17 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Job Records', {
-  setup(frm) {
-      frm.fields_dict.assignments.grid.get_field('driver').get_query = () => {
-          return {
-              query: "logistics.api.get_available_drivers"
-          };
-      };
-  },
+    setup(frm) {
+        frm.fields_dict.assignments.grid.get_field('driver').get_query = function(doc, cdt, cdn) {
+            return {
+                query: "logistics.api.get_available_drivers",
+                filters: {
+                    start_datetime: frm.doc.start_datetime,
+                    end_datetime: frm.doc.end_datetime
+                }
+            };
+        };
+    },
 
   refresh(frm) {
       frm.events.set_financial_indicators(frm);
@@ -145,4 +149,15 @@ frappe.ui.form.on('Job Assignment', {
           frappe.model.set_value(cdt, cdn, 'vehicle', '');
       }
   }
+});
+
+
+frappe.ui.form.on("Job Records", {
+    refresh(frm) {
+        if (!frm.is_new()) {
+            frm.add_custom_button(__('View Trips'), function() {
+                frappe.set_route("List", "Trip Details", { job_records: frm.doc.name });
+            }, __("View"));
+        }
+    }
 });
