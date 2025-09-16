@@ -13,7 +13,6 @@ def login_and_get_keys(username: str, password: str):
         user = frappe.session.user
         user_doc = frappe.get_doc("User", user)
 
-        # Ensure API keys are generated
         if not user_doc.api_key:
             user_doc.api_key = frappe.generate_hash(length=15)
         if not user_doc.api_secret:
@@ -246,6 +245,51 @@ def get_driver_trips():
     except Exception:
         frappe.log_error(frappe.get_traceback(), "Get Driver Trips Error")
         return {"status_code": 500, "message": "Internal Server Error"}
+
+
+
+
+@frappe.whitelist()
+def get_trip_details(trip_id):
+    """Return full details of a trip including location logs"""
+    try:
+        if frappe.session.user == "Guest":
+            return {"status_code": 401, "message": "Unauthorized"}
+
+        if not frappe.db.exists("Trip Details", trip_id):
+            return {"status_code": 404, "message": "Trip not found"}
+
+        trip = frappe.get_doc("Trip Details", trip_id)
+
+        data = {
+            "status_code": 200,
+            "trip": {
+                "name": trip.name,
+                "job_records": trip.job_records,
+                "driver": trip.driver,
+                "vehicle": trip.vehicle,
+                "start_datetime": trip.start_datetime,
+                "end_datetime": trip.end_datetime,
+                "status": trip.status,
+                "logs": []
+            }
+        }
+
+        for log in trip.trip_location_log:
+            data["trip"]["logs"].append({
+                "latitude": log.latitude,
+                "longitude": log.longitude,
+                "timestamp": log.time,
+                "location": log.location
+            })
+
+        return data
+
+    except Exception:
+        frappe.log_error(frappe.get_traceback(), "Get Trip Details Error")
+        return {"status_code": 500, "message": "Internal Server Error"}
+
+
 
 
 
