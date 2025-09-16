@@ -270,6 +270,10 @@ def get_trip_details(trip_id):
                 "vehicle": trip.vehicle,
                 "start_datetime": trip.start_datetime,
                 "end_datetime": trip.end_datetime,
+                "pickup_date_time": trip.pickup_date_time,
+                "delivery_date_time": trip.delivery_date_time,
+                "loading_place": trip.loading_place,
+                "unloading_place": trip.unloading_place,
                 "status": trip.status,
                 "logs": []
             }
@@ -294,8 +298,10 @@ def get_trip_details(trip_id):
 
 
 @frappe.whitelist()
-def update_trip_status(trip_id, status):
+def update_trip_status(trip_id, status, pickup_date_time=None, delivery_date_time=None):
+    """Update status of trip with mandatory rules for pickup/delivery times"""
     trip = frappe.get_doc("Trip Details", trip_id)
+
     employee = frappe.get_value("Employee", {"user_id": frappe.session.user}, "name")
     driver = frappe.get_value("Driver", {"employee": employee}, "name")
     if trip.driver != driver:
@@ -304,8 +310,48 @@ def update_trip_status(trip_id, status):
     if status not in ["Trip Started", "In Progress", "Trip Completed", "Cancelled"]:
         return {"status_code": 400, "message": "Invalid status"}
 
+    if status == "Trip Started":
+        if not pickup_date_time:
+            return {
+                "status_code": 400,
+                "message": "Pickup Date/Time is required when starting the trip"
+            }
+        trip.pickup_date_time = pickup_date_time
+
+    if status == "Trip Completed":
+        if not delivery_date_time:
+            return {
+                "status_code": 400,
+                "message": "Delivery Date/Time is required when completing the trip"
+            }
+        if not trip.pickup_date_time:
+            return {
+                "status_code": 400,
+                "message": "Pickup Date/Time must be filled before completing the trip"
+            }
+        trip.delivery_date_time = delivery_date_time
+
+    if pickup_date_time and status not in ["Trip Started"]:
+        trip.pickup_date_time = pickup_date_time
+
+    if delivery_date_time and status not in ["Trip Completed"]:
+        if not trip.pickup_date_time:
+            return {
+                "status_code": 400,
+                "message": "Pickup Date/Time must be filled before setting Delivery Date/Time"
+            }
+        trip.delivery_date_time = delivery_date_time
+
     trip.status = status
     trip.save(ignore_permissions=True)
     frappe.db.commit()
 
-    return {"status_code": 200, "message": f"Trip status updated to {status}"}
+    return {
+        "status_code": 200,
+        "message": f"Trip status updated to {status}",
+        "trip": trip.name,
+        "pickup_date_time": trip.pickup_date_time,
+        "delivery_date_time": trip.delivery_date_time
+    }
+
+
