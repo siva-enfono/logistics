@@ -355,3 +355,38 @@ def update_trip_status(trip_id, status, pickup_date_time=None, delivery_date_tim
     }
 
 
+##
+
+@frappe.whitelist()
+def get_all_trips(driver=None, status=None, start_date=None, end_date=None):
+    filters = {}
+    if driver:
+        filters["driver"] = driver
+    if status:
+        filters["status"] = status
+    if start_date and end_date:
+        filters["start_datetime"] = (">=", start_date)
+        filters["end_datetime"] = ("<=", end_date)
+
+    trips = frappe.get_all(
+        "Trip Details",
+        filters=filters,
+        fields=["name", "driver", "vehicle", "status", "start_datetime", "end_datetime"]
+    )
+
+    for t in trips:
+        if t.driver:
+            t["driver_name"] = frappe.db.get_value("Driver", t.driver, "name") or ""
+
+            employee = frappe.db.get_value("Driver", t.driver, "employee")
+            if employee:
+                t["employee_name"] = frappe.db.get_value("Employee", employee, "employee_name") or ""
+            else:
+                t["employee_name"] = ""
+        else:
+            t["driver_name"] = ""
+            t["employee_name"] = ""
+
+    return trips
+
+

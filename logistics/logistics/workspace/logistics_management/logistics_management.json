@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"-zMYrPYtml\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Logistics Management</span>\",\"col\":12}},{\"id\":\"Q5rBfmqAbC\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Jobs\",\"col\":4}},{\"id\":\"WDSztxKHe6\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Customers\",\"col\":4}},{\"id\":\"ILdwqQlChD\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Masters</b></span>\",\"col\":12}},{\"id\":\"6ksPIPiln6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Job Records\",\"col\":3}},{\"id\":\"6gc0aPI1xM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Driver\",\"col\":3}},{\"id\":\"WusU7ctYyq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vehicle\",\"col\":3}},{\"id\":\"wSVKe1DIc6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice\",\"col\":3}},{\"id\":\"dVLx-VzP8o\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Delivery Note\",\"col\":3}},{\"id\":\"H3UMZlCQw8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item\",\"col\":3}},{\"id\":\"FhRuDAle8Y\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Trip Details\",\"col\":3}}]",
+ "content": "[{\"id\":\"-zMYrPYtml\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Logistics Management</span>\",\"col\":12}},{\"id\":\"Q5rBfmqAbC\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Jobs\",\"col\":4}},{\"id\":\"WDSztxKHe6\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Customers\",\"col\":4}},{\"id\":\"ILdwqQlChD\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Masters</b></span>\",\"col\":12}},{\"id\":\"6ksPIPiln6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Job Records\",\"col\":3}},{\"id\":\"H3UMZlCQw8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item\",\"col\":3}},{\"id\":\"dVLx-VzP8o\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Delivery Note\",\"col\":3}},{\"id\":\"wSVKe1DIc6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice\",\"col\":3}},{\"id\":\"6gc0aPI1xM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Driver\",\"col\":3}},{\"id\":\"WusU7ctYyq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vehicle\",\"col\":3}},{\"id\":\"FhRuDAle8Y\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Trip Details\",\"col\":3}},{\"id\":\"8P5nf2XERx\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"xLWq30KXLM\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Map Analytics</b></span>\",\"col\":12}},{\"id\":\"L-XdWE8V2I\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Trip Wise-Map Analytics\",\"col\":3}}]",
  "creation": "2025-07-23 10:44:48.331421",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,8 +13,8 @@
  "is_hidden": 0,
  "label": "Logistics Management",
  "links": [],
- "modified": "2025-09-15 12:25:04.314694",
- "modified_by": "siva@enfono.com",
+ "modified": "2025-09-18 11:40:55.521303",
+ "modified_by": "Administrator",
  "module": "Logistics",
  "name": "Logistics Management",
  "number_cards": [
@@ -36,7 +36,7 @@
    "role": "All"
   }
  ],
- "sequence_id": 39.0,
+ "sequence_id": 18.0,
  "shortcuts": [
   {
    "color": "Grey",
@@ -45,6 +45,13 @@
    "link_to": "Sales Invoice",
    "stats_filter": "[]",
    "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Trip Wise-Map Analytics",
+   "link_to": "trip-dashboard",
+   "type": "Page"
   },
   {
    "color": "Grey",

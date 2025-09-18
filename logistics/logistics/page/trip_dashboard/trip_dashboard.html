@@ -1,0 +1,88 @@
+<div class="trip-dashboard container-fluid p-3">
+   
+    <div class="filters row g-3 mb-3">
+      <div class="col-md-3">
+        <label>Driver</label>
+        <select id="filter-driver" class="form-control"></select>
+      </div>
+      <div class="col-md-3">
+        <label>Status</label>
+        <select id="filter-status" class="form-control">
+          <option value="">All</option>
+          <option>Pending</option>
+          <option>Trip Started</option>
+          <option>In Progress</option>
+          <option>Trip Completed</option>
+          <option>Cancelled</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label>Date Range</label>
+        <input type="date" id="filter-start" class="form-control mb-1"/>
+        <input type="date" id="filter-end" class="form-control"/>
+      </div>
+      <div class="col-md-3 d-flex align-items-end">
+        <button id="apply-filters" class="btn btn-dark w-100">Apply Filters</button>
+      </div>
+    </div>
+  
+    <div id="trip-list" class="list-group trip-list shadow-sm mb-3"></div>
+  
+    <div class="map-wrapper rounded shadow-sm">
+      <div id="map"></div>
+    </div>
+  </div>
+  
+  <style>
+    .dashboard-header {
+      background: #9dbad7; 
+    }
+  
+    .btn-dark {
+      background: #343a40;
+      border: none;
+      color: #fff;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .btn-dark:hover {
+      background: #495057;
+      transform: scale(1.02);
+    }
+  
+    .trip-list .list-group-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s, transform 0.2s;
+      border-left: 5px solid transparent;
+    }
+    .trip-list .list-group-item:hover {
+      background: #f8f9fa;
+      transform: translateX(5px);
+      border-left: 5px solid #6c757d;
+    }
+  
+    .status-badge {
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .status-pending { background: #6c757d; }   
+    .status-started { background: #d7ca64; }   
+    .status-progress { background: #80b5bf; }  
+    .status-completed { background: #198754; } 
+    .status-cancelled { background: #dc3545; } 
+  
+    .map-wrapper {
+      overflow: hidden;
+    }
+    #map {
+      height: 60vh;
+      width: 100%;
+      border-radius: 0.5rem;
+    }
+  </style>
+  
