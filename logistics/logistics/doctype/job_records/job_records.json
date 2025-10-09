@@ -9,14 +9,13 @@
   "general_details_section",
   "naming_series",
   "date",
-  "mode_of_transport",
+  "po_date",
   "job_reference",
-  "po_number",
+  "status",
   "column_break_btlr",
   "job_type",
-  "assigned_by",
-  "po_date",
-  "status",
+  "mode_of_transport",
+  "po_number",
   "item_received_date",
   "customercontact_info_section",
   "customer",
@@ -27,14 +26,12 @@
   "pickupdelivery_info_section",
   "consignee_name",
   "delivered_to_site_name",
-  "start_datetime",
   "pickup_date_time",
   "loading_place",
   "column_break_xzdb",
   "consignee_contact_name",
   "consignee_contact_number",
   "end_datetime",
-  "delivery_date_time",
   "unloading_place",
   "commodity_details_section",
   "commodity_description",
@@ -45,6 +42,10 @@
   "weight_kg",
   "job_assignment_tab",
   "job_assignment_section",
+  "start_datetime",
+  "column_break_yemz",
+  "delivery_date_time",
+  "section_break_ynzm",
   "assignments"
  ],
  "fields": [
@@ -108,13 +109,8 @@
    "fieldname": "customer",
    "fieldtype": "Link",
    "label": "Customer\t",
-   "options": "Customer"
-  },
-  {
-   "fieldname": "assigned_by",
-   "fieldtype": "Link",
-   "label": "Assigned By",
-   "options": "User"
+   "options": "Customer",
+   "reqd": 1
   },
   {
    "fieldname": "po_date",
@@ -240,20 +236,26 @@
    "fieldname": "start_datetime",
    "fieldtype": "Datetime",
    "in_list_view": 1,
-   "label": "Start Date Time",
-   "reqd": 1
+   "label": "Start Date Time"
   },
   {
    "fieldname": "end_datetime",
    "fieldtype": "Datetime",
    "in_list_view": 1,
-   "label": "End Date Time",
-   "reqd": 1
+   "label": "End Date Time"
   },
   {
    "fieldname": "job_assignment_tab",
    "fieldtype": "Tab Break",
    "label": "Job Assignment"
+  },
+  {
+   "fieldname": "column_break_yemz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ynzm",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -279,7 +281,7 @@
    "link_fieldname": "custom_job_record"
   }
  ],
- "modified": "2025-10-09 11:05:01.595655",
+ "modified": "2025-10-09 12:34:24.094680",
  "modified_by": "Administrator",
  "module": "Logistics",
  "name": "Job Records",

@@ -17,7 +17,6 @@ frappe.ui.form.on('Job Records', {
     refresh(frm) {
         frm.events.set_financial_indicators(frm);
 
-        // Add custom button to fetch drivers
         frm.add_custom_button(__('Fetch Available Drivers'), function() {
             if (!frm.doc.start_datetime || !frm.doc.end_datetime) {
                 frappe.msgprint(__('Please set Start Date and End Date first.'));
