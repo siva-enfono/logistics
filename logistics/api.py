@@ -48,6 +48,9 @@ def login_and_get_keys(username: str, password: str):
 
 
 
+import frappe
+from frappe.utils import get_datetime
+
 @frappe.whitelist()
 def get_available_drivers(doctype, txt, searchfield, start, page_len, filters=None):
     """Return available drivers who are not double-booked in the given time range."""
@@ -59,15 +62,17 @@ def get_available_drivers(doctype, txt, searchfield, start, page_len, filters=No
         start_time = filters.get("start_datetime")
         end_time = filters.get("end_datetime")
 
+        # Convert to datetime safely
         try:
             if start_time:
                 start_time = get_datetime(start_time)
             if end_time:
                 end_time = get_datetime(end_time)
         except Exception as e:
-            frappe.log_error(f"Date parsing error: {str(e)}", "Driver Query Error")
+            frappe.log_error(f"Driver filter date parsing error: {str(e)}", "get_available_drivers")
             return []
 
+    # When no time filters given — list all active drivers
     if not (start_time and end_time):
         return frappe.db.sql("""
             SELECT d.name, d.full_name
@@ -77,8 +82,9 @@ def get_available_drivers(doctype, txt, searchfield, start, page_len, filters=No
               AND (d.name LIKE %(txt)s OR d.full_name LIKE %(txt)s)
             ORDER BY d.full_name
             LIMIT 20
-        """, {"txt": f"%{txt}%"}, as_dict=1)
-
+        """, {"txt": f"%{txt}%"})
+    
+    # When start and end are given — exclude booked drivers
     return frappe.db.sql("""
         SELECT d.name, d.full_name
         FROM `tabDriver` d
@@ -102,10 +108,7 @@ def get_available_drivers(doctype, txt, searchfield, start, page_len, filters=No
         "txt": f"%{txt}%",
         "start": start_time,
         "end": end_time
-    }, as_dict=1)
-
-
-
+    })
 
 ##Geolocation
 
