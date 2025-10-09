@@ -2,6 +2,8 @@ import frappe, requests, json
 from frappe.auth import LoginManager
 from frappe.utils import flt
 from frappe.utils.password import get_decrypted_password
+from frappe.utils import get_datetime
+
 
 @frappe.whitelist(allow_guest=True)
 def login_and_get_keys(username: str, password: str):
@@ -46,9 +48,6 @@ def login_and_get_keys(username: str, password: str):
 
 
 
-
-
-
 @frappe.whitelist()
 def get_available_drivers(doctype, txt, searchfield, start, page_len, filters=None):
     """Return available drivers who are not double-booked in the given time range."""
@@ -60,6 +59,15 @@ def get_available_drivers(doctype, txt, searchfield, start, page_len, filters=No
         start_time = filters.get("start_datetime")
         end_time = filters.get("end_datetime")
 
+        try:
+            if start_time:
+                start_time = get_datetime(start_time)
+            if end_time:
+                end_time = get_datetime(end_time)
+        except Exception as e:
+            frappe.log_error(f"Date parsing error: {str(e)}", "Driver Query Error")
+            return []
+
     if not (start_time and end_time):
         return frappe.db.sql("""
             SELECT d.name, d.full_name
@@ -69,7 +77,7 @@ def get_available_drivers(doctype, txt, searchfield, start, page_len, filters=No
               AND (d.name LIKE %(txt)s OR d.full_name LIKE %(txt)s)
             ORDER BY d.full_name
             LIMIT 20
-        """, {"txt": f"%{txt}%"})
+        """, {"txt": f"%{txt}%"}, as_dict=1)
 
     return frappe.db.sql("""
         SELECT d.name, d.full_name
@@ -83,14 +91,18 @@ def get_available_drivers(doctype, txt, searchfield, start, page_len, filters=No
               INNER JOIN `tabJob Records` jr ON ja.parent = jr.name
               WHERE jr.status IN ('Pending', 'In Progress')
                 AND (
-                    (jr.start_datetime <= %(start)s AND jr.end_datetime >= %(start)s) OR
-                    (jr.start_datetime <= %(end)s AND jr.end_datetime >= %(end)s) OR
-                    (jr.start_datetime >= %(start)s AND jr.end_datetime <= %(end)s)
+                    (%(start)s BETWEEN jr.start_datetime AND jr.end_datetime) OR
+                    (%(end)s BETWEEN jr.start_datetime AND jr.end_datetime) OR
+                    (jr.start_datetime BETWEEN %(start)s AND %(end)s)
                 )
           )
         ORDER BY d.full_name
         LIMIT 20
-    """, {"txt": f"%{txt}%", "start": start_time, "end": end_time})
+    """, {
+        "txt": f"%{txt}%",
+        "start": start_time,
+        "end": end_time
+    }, as_dict=1)
 
 
 

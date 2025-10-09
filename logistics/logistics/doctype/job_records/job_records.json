@@ -43,6 +43,7 @@
   "no_of_pieces",
   "volume_cbm",
   "weight_kg",
+  "job_assignment_tab",
   "job_assignment_section",
   "assignments"
  ],
@@ -248,6 +249,11 @@
    "in_list_view": 1,
    "label": "End Date Time",
    "reqd": 1
+  },
+  {
+   "fieldname": "job_assignment_tab",
+   "fieldtype": "Tab Break",
+   "label": "Job Assignment"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -273,7 +279,7 @@
    "link_fieldname": "custom_job_record"
   }
  ],
- "modified": "2025-08-20 13:45:56.506773",
+ "modified": "2025-10-09 11:05:01.595655",
  "modified_by": "Administrator",
  "module": "Logistics",
  "name": "Job Records",
