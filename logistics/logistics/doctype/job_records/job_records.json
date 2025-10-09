@@ -31,7 +31,7 @@
   "column_break_xzdb",
   "consignee_contact_name",
   "consignee_contact_number",
-  "end_datetime",
+  "delivery_date_time",
   "unloading_place",
   "commodity_details_section",
   "commodity_description",
@@ -44,7 +44,7 @@
   "job_assignment_section",
   "start_datetime",
   "column_break_yemz",
-  "delivery_date_time",
+  "end_datetime",
   "section_break_ynzm",
   "assignments"
  ],
@@ -293,7 +293,7 @@
    "link_fieldname": "custom_job_record"
   }
  ],
- "modified": "2025-10-09 12:42:16.494899",
+ "modified": "2025-10-09 12:49:18.706432",
  "modified_by": "Administrator",
  "module": "Logistics",
  "name": "Job Records",
