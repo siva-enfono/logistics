@@ -102,12 +102,20 @@
   {
    "fieldname": "job_type",
    "fieldtype": "Select",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Job Type",
    "options": "\nTRANSPORTATION\nINSTALLATION"
   },
   {
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Customer\t",
    "options": "Customer",
    "reqd": 1
@@ -229,6 +237,10 @@
   {
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Job Status",
    "options": "Pending\nIn Progress\nCompleted"
   },
@@ -281,7 +293,7 @@
    "link_fieldname": "custom_job_record"
   }
  ],
- "modified": "2025-10-09 12:34:24.094680",
+ "modified": "2025-10-09 12:42:16.494899",
  "modified_by": "Administrator",
  "module": "Logistics",
  "name": "Job Records",
